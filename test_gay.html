@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣味性取向指数测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #6c5ce7;
+            margin-bottom: 20px;
+            font-size: 32px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+            border-radius: 2px;
+        }
+        
+        .disclaimer {
+            background-color: #fff4e5;
+            border: 2px dashed #ffa94d;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 12px;
+            font-size: 15px;
+            color: #d46b08;
+            text-align: left;
+        }
+        
+        .input-area {
+            margin: 30px 0;
+        }
+        
+        input {
+            width: 70%;
+            padding: 14px 20px;
+            border: 2px solid #dcdde1;
+            border-radius: 10px;
+            font-size: 18px;
+            outline: none;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        input:focus {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(108, 92, 231, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .result {
+            margin-top: 40px;
+            min-height: 250px;
+            display: none;
+        }
+        
+        .score-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        
+        .score {
+            font-size: 68px;
+            font-weight: bold;
+            color: #6c5ce7;
+            text-shadow: 2px 2px 8px rgba(108, 92, 231, 0.3);
+        }
+        
+        .score-label {
+            font-size: 22px;
+            color: #777;
+            margin-top: 10px;
+        }
+        
+        .comment {
+            font-size: 20px;
+            color: #555;
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .comment:before {
+            content: """;
+            font-size: 60px;
+            color: #6c5ce7;
+            position: absolute;
+            top: -15px;
+            left: 15px;
+            opacity: 0.2;
+        }
+        
+        .rainbow-bar {
+            height: 6px;
+            width: 100%;
+            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+            border-radius: 3px;
+            margin: 30px 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 0.5s ease;
+        }
+        
+        .history {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌈 趣味性取向指数测试</h1>
+        
+        <div class="disclaimer">
+            <strong>免责声明：</strong>本测试仅供娱乐，无任何科学依据，结果纯属虚构，请勿当真。旨在带来轻松一笑，请勿用于任何严肃目的或歧视性用途。
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="nameInput" placeholder="请输入名字" autocomplete="off">
+            <div>
+                <button id="testButton">开始测试</button>
+            </div>
+        </div>
+        
+        <div class="rainbow-bar"></div>
+        
+        <div class="result" id="result">
+            <div class="score-container">
+                <div class="score" id="score">0</div>
+                <div class="score-label">性取向指数</div>
+            </div>
+            
+            <div class="comment" id="comment">请输入名字获取测试结果</div>
+        </div>
+        
+        <div class="history">
+            已测试: <span id="historyCount">0</span> 次
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameInput = document.getElementById('nameInput');
+            const testButton = document.getElementById('testButton');
+            const resultDiv = document.getElementById('result');
+            const scoreElement = document.getElementById('score');
+            const commentElement = document.getElementById('comment');
+            const historyCountElement = document.getElementById('historyCount');
+            
+            let testCount = 0;
+            
+            testButton.addEventListener('click', function() {
+                const name = nameInput.value.trim();
+                
+                if (name === '') {
+                    alert('请输入名字后再测试！');
+                    return;
+                }
+                
+                // 简单的哈希计算（仅供娱乐）
+                const score = calculateScore(name);
+                
+                // 显示结果
+                scoreElement.textContent = score;
+                commentElement.textContent = getComment(score, name);
+                resultDiv.style.display = 'block';
+                
+                // 添加动画效果
+                scoreElement.classList.remove('fade-in');
+                commentElement.classList.remove('fade-in');
+                void scoreElement.offsetWidth; // 触发重绘
+                scoreElement.classList.add('fade-in');
+                commentElement.classList.add('fade-in');
+                scoreElement.classList.add('pulse');
+                
+                // 更新测试计数
+                testCount++;
+                historyCountElement.textContent = testCount;
+                
+                // 移除脉冲动画类，以便下次可以重新添加
+                setTimeout(() => {
+                    scoreElement.classList.remove('pulse');
+                }, 500);
+            });
+            
+            function calculateScore(name) {
+                // 为特定名字设置固定分数
+                const specialScores = {
+                    "张中祺": 98,
+                    "林嘉辉": 99,
+                    "林驁": 100
+                };
+                
+                if (specialScores.hasOwnProperty(name)) {
+                    return specialScores[name];
+                }
+                
+                let hash = 0;
+                
+                // 简单哈希计算
+                for (let i = 0; i < name.length; i++) {
+                    hash = (hash * 31 + name.charCodeAt(i)) % 101;
+                }
+                
+                // 确保分数在0-100之间
+                return Math.abs(hash);
+            }
+            
+            function getComment(score, name) {
+                // 为特殊名字添加特殊评语
+                if (name === "张中祺") {
+                    return `天呐！${name}，你的彩虹指数简直爆表！你一定是行走的彩虹旗，所到之处皆成骄傲游行！`;
+                }
+                
+                if (name === "林嘉辉") {
+                    return `哇！${name}，你的多元性取向指数接近满分！你简直是LGBTQ+群体的完美代言人！`;
+                }
+                
+                if (name === "林驁") {
+                    return `不可思议！${name}，你获得了满分！你就是彩虹本虹，多元性取向的终极形态！`;
+                }
+                
+                if (score < 10) {
+                    return `${name}，你的性取向指数极低，比钢筋混凝土还要直！你就是传说中的"宇宙钢铁直人"！`;
+                } else if (score < 20) {
+                    return `${name}，你的性取向非常传统，就像老式黑白电视一样只有两种模式！`;
+                } else if (score < 30) {
+                    return `${name}，你的性取向比较保守，但偶尔也会偷偷欣赏一下同性的美！`;
+                } else if (score < 40) {
+                    return `${name}，你的性取向基本笔直，但偶尔会弯成一个小鱼钩！`;
+                } else if (score < 50) {
+                    return `${name}，你的性取向处于中间地带，就像薛定谔的猫，不观测的时候什么都有可能！`;
+                } else if (score < 60) {
+                    return `${name}，你的性取向有点灵活，能够欣赏不同性别的魅力！`;
+                } else if (score < 70) {
+                    return `${name}，你的性取向相当多元，彩虹旗在你心中轻轻飘扬！`;
+                } else if (score < 80) {
+                    return `${name}，你的性取向非常开放，就像一道美丽的彩虹，包容万象！`;
+                } else if (score < 90) {
+                    return `${name}，你的性取向极度多元，彩虹旗为你高高飘扬！记得参加骄傲游行哦！`;
+                } else {
+                    return `${name}，你的性取向指数爆棚！你就是行走的彩虹，多元性取向的完美体现！`;
+                }
+            }
+            
+            // 允许按回车键触发测试
+            nameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    testButton.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
