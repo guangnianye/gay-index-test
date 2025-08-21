@@ -1,1 +1,0 @@
-# gay-index-test
